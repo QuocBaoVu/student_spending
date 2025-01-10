@@ -5,7 +5,7 @@ Project Overview
 
 The Student Spending Tracker is an iOS application designed to help students manage their finances effectively. By providing detailed insights into spending habits, income tracking, and smart recommendations, the app empowers students to make informed financial decisions. The app combines a user-friendly interface with robust backend processing and data visualization to deliver a seamless experience.
 
-Key Features
+Key Features:
 1. Input Section
 Expense Tracking: Users can log daily expenses with details such as amount, category, date, and payment method.
 Income Tracking: Users can input income sources to balance against expenses.
@@ -31,13 +31,13 @@ Data Visualization: Matplotlib and Seaborn (for creating interactive charts)
 Database: MySQL (for secure data storage and retrieval)
 
 
-App Structure
+App Structure:
 Input Section: For entering income and expenses.
 Calendar View: To visually track daily expenses.
 Report Menu: To analyze income and spending patterns over different timeframes.
 
 
-Conclusion
+Conclusion:
 The Student Spending Tracker app is a comprehensive financial tool tailored for students. It enables efficient expense management, promotes financial literacy, and encourages smarter spending habits through intelligent insights and reminders.
 By integrating robust technologies and user-friendly design, this app aims to become an essential part of every student's financial planning toolkit.
 
