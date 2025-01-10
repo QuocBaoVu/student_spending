@@ -1,43 +1,38 @@
-# student_spending
+# Student Spending Tracker iOS App
 
-Student Spending Tracker iOS App
-Project Overview
+## Project Overview
+The **Student Spending Tracker** is an iOS application designed to help students manage their finances effectively. The app enables users to log daily expenses and income, analyze their financial habits, and receive personalized recommendations for better budgeting. By integrating data visualization and predictive analytics, this app empowers students to make smarter financial decisions.
 
-The Student Spending Tracker is an iOS application designed to help students manage their finances effectively. By providing detailed insights into spending habits, income tracking, and smart recommendations, the app empowers students to make informed financial decisions. The app combines a user-friendly interface with robust backend processing and data visualization to deliver a seamless experience.
+## Key Features
 
-Key Features:
-1. Input Section
-Expense Tracking: Users can log daily expenses with details such as amount, category, date, and payment method.
-Income Tracking: Users can input income sources to balance against expenses.
-Expense Categories: Predefined categories include Food, Houseware, Clothes, Medical, Education, Electric, Transportation, Contact Fee, Housing Expense, Groceries, Laundry, and Entertainment.
-2. Calendar View
-Visual Expense Overview: Displays daily expenses on a calendar for quick insights.
-Interactive Interface: Allows users to click on dates to view detailed spending information.
-3. Report Menu
-Expense and Income Breakdown: Separates income and expenses for clear analysis.
-Time-Based Reports: Provides statistics for monthly, annual, and all-time spending.
-Data Visualization: Generates interactive charts and graphs using Matplotlib and Seaborn to showcase spending patterns.
-4. Smart Recommendations
-Spending Adjustments: Suggests categories to increase or decrease spending in the upcoming months.
-Non-Essential Expense Detection: Identifies and flags non-essential purchases.
-Money-Saving Tips: Offers practical advice to help users save money based on spending trends.
-5. Subscription Reminders
-Upcoming Payment Alerts: Notifies users of upcoming subscription renewals.
-Subscription Management: Recommends cancellation of unused or unnecessary subscriptions.
-Technical Stack
-Frontend: SwiftUI (for a responsive and modern iOS interface)
-Backend: Python (for processing data and generating insights)
-Data Visualization: Matplotlib and Seaborn (for creating interactive charts)
-Database: MySQL (for secure data storage and retrieval)
+### 1. Expense and Income Tracking
+- **Add Expenses:** Input daily spending with details like amount, category, date, and optional notes.
+- **Add Income:** Log sources of income to track financial inflow.
+- **Expense Categories:** Includes categories like Food, Houseware, Clothes, Medical, Education, Electric, Transportation, Contact Fee, Housing Expense, Groceries, Laundry, and Entertainment.
 
+### 2. Data Visualization
+- **Pie Charts:** Visual breakdown of spending by category.
+- **Bar Charts:** Monthly income vs. expenses.
+- **Line Charts:** Spending trends over time.
 
-App Structure:
-Input Section: For entering income and expenses.
-Calendar View: To visually track daily expenses.
-Report Menu: To analyze income and spending patterns over different timeframes.
+### 3. Financial Recommendations
+- **Spending Insights:** Suggestions on which categories to increase or decrease spending.
+- **Non-Essential Detection:** Identifies unnecessary spending.
+- **Saving Tips:** Personalized advice to help users save money.
 
+### 4. Subscription Reminders
+- **Payment Alerts:** Notifications for upcoming subscription payments.
+- **Subscription Management:** Helps identify subscriptions that can be canceled or adjusted.
 
-Conclusion:
-The Student Spending Tracker app is a comprehensive financial tool tailored for students. It enables efficient expense management, promotes financial literacy, and encourages smarter spending habits through intelligent insights and reminders.
-By integrating robust technologies and user-friendly design, this app aims to become an essential part of every student's financial planning toolkit.
+### 5. Machine Learning Integration
+- **Spending Predictions:** Uses **Scikit-learn** models to forecast future spending patterns.
+- **Behavior Analysis:** Detects overspending trends and suggests proactive measures.
+- **Personalized Recommendations:** Adapts financial tips based on historical spending data.
+
+## Tech Stack
+- **Frontend:** SwiftUI (iOS app interface)
+- **Backend:** Python with FastAPI (REST API)
+- **Database:** MySQL (data storage)
+- **Data Visualization:** Matplotlib and Seaborn (chart generation)
+- **Machine Learning:** Scikit-learn (spending prediction and recommendation system)
 
