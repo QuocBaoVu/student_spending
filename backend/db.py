@@ -1,17 +1,16 @@
-import mysql.connector
+from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import os
 
+# Load environment variables from .env file
 load_dotenv()
 
+# Database URL for SQLite
+DB_URL = "sqlite:///student_spending_app.db"
+
 def get_db_connection():
-    connection = mysql.connector.connect(
-        host=os.getenv('DB_HOST'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME')
-    )
-    return connection
+    engine = create_engine(DB_URL, echo=True)
+    return engine
 
 
 
