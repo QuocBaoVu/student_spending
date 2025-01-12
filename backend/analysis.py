@@ -5,82 +5,79 @@ import matplotlib.pyplot as plt
 import os
 from db import get_db_connection
 
-# ✅ Fetch Expenses Data
-def fetch_expenses():
+#Fetch Expenses Data
+def fetch_expenses(month=None, year=None):
     engine = get_db_connection()
     try:
         with engine.connect() as connection:
             query = 'SELECT category, amount, date FROM expenses'
-            df_expenses = pd.read_sql(query, connection)
+            if month and year:
+                query += " WHERE strftime('%m', date) = :month AND strftime('%Y', date) = :year"
+            df_expenses = pd.read_sql(query, connection, params={
+                "month": f"{int(month):02d}",
+                "year": str(year)
+            })
             return df_expenses
     except Exception as e:
         print(f"Error fetching expenses: {e}")
         return pd.DataFrame()
 
-# ✅ Fetch Income Data
-def fetch_income():
+#Fetch Income Data
+def fetch_income(month=None, year=None):
     engine = get_db_connection()
     try:
         with engine.connect() as connection:
             query = 'SELECT source, amount, date FROM income'
-            df_income = pd.read_sql(query, connection)
+            if month and year:
+                query += " WHERE strftime('%m', date) = :month AND strftime('%Y', date) = :year"
+            df_income = pd.read_sql(query, connection, params={
+                "month": f"{int(month):02d}",
+                "year": str(year)
+            })
             return df_income
     except Exception as e:
         print(f"Error fetching income: {e}")
         return pd.DataFrame()
 
-# Generate and Save the Pie Chart for Expenses
-def generate_expenses_pie_chart():
-    df_expenses = fetch_expenses()
+# Generate and save the Monthly Pie chart 
+def generate_monthly_pie_chart(data_type, month, year):
 
-    if df_expenses.empty:
-        print("No expense data available.")
-        return
+    if data_type == "expenses":
+        df = fetch_expenses(month, year)
+        title = f'Spend Distribution - {month}/{year}'
+        filename = f'expense_pie_{month}_{year}.png'
+        label_col = 'category'
+    elif data_type == "income":
+        df = fetch_income(month, year)
+        title = f'Income Distribution - {month}/{year}'
+        filename = f'income_pie_{month}_{year}.png'
+        label_col = 'source'
+    else:
+        print("Invalid data type. Use 'expenses' or 'income'.")
+    
 
-    # Group data by category and sum amounts
-    grouped_data = df_expenses.groupby('category')['amount'].sum()
-
-    # Plot the Pie Chart
-    plt.figure(figsize=(8, 8))
-    plt.pie(grouped_data, labels=grouped_data.index, autopct='%1.1f%%', startangle=140)
-    plt.title('Spending Distribution by Category')
-    plt.axis('equal')
-
-    # Ensure 'static' folder exists
-    os.makedirs('static', exist_ok=True)
-
-    # Save the Pie Chart to the 'static' folder
-    output_path = os.path.join('static', 'expense_pie_chart.png')
-    plt.savefig(output_path)
-    plt.close()
-    print(f"Expense pie chart saved to {output_path}")
-
-# Generate and save the Pie chart for income
-def generate_income_pie_chart():
-    df_income = fetch_income()
-
-    if df_income.empty:
-        print("No data for income")
+    if df.empty: 
+        print(f"No data for {data_type}")
         return
     
     #Grouping data by category
-    grouped_data = df_income.groupby('source')['amount'].sum()
+    grouped_data = df.groupby(label_col)['amount'].sum()
 
     #Plot the Pie Chart
     plt.figure(figsize=(8, 8))
     plt.pie(grouped_data, labels=grouped_data.index, autopct='%1.1f%%', startangle=140)
-    plt.title('Income Distribution by Source')
+    plt.title(title)
     plt.axis('equal')
 
     # Ensure 'static' folder exists
     os.makedirs('static', exist_ok=True)
 
     #save plot to static
-    output_path = os.path.join('static', 'income_pie_chart.png')
+    output_path = os.path.join('static', filename)
     plt.savefig(output_path)
     plt.close()
-    print(f"Income pie chart saved to {output_path}")
+    print(f"{filename} pie chart saved to {output_path}")
 
 
 if __name__ == "__main__":
-    generate_income_pie_chart()
+    generate_monthly_pie_chart('income', 1 , 2025)
