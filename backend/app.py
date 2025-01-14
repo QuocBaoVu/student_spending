@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from models import ExpenseSchema, IncomeSchema
-from analysis import generate_monthly_pie_chart
+from analysis import generate_chart
 from db import get_db_connection
 from sqlalchemy import text
 import os
@@ -84,17 +84,25 @@ def get_income():
 
 
 @app.get("/charts/monthly-pie")
-def get_monthly_pie_chart(data_type: str, month: int, year: int):
+def get_chart(data_type: str, month: int, year: int, chart_type: str):
     if data_type not in ["expenses", "income"]:
         raise HTTPException(status_code=400, detail="Invalid data type. Choose 'expenses' or 'income'.")
 
-    generate_monthly_pie_chart(data_type, month, year)
+    if chart_type not in ["pie", "annual_bar", "monthly_bar"]:
+        raise HTTPException(status_code=400, detail="Invalid chart type. Choose 'pie', 'annual_bar' or 'monthly_bar'.")
+    generate_chart(data_type, month, year, chart_type)
 
-    file_name = f"{data_type}_pie_{month}_{year}.png"
+    if chart_type == "pie":
+        file_name = f"{data_type}_pie_{month}_{year}.png"
+    elif chart_type =="annual_bar":
+        file_name = f"{data_type}_bar_{year}.png"
+    else:
+        file_name = f"{data_type}_bar_{month}_{year}.png"
+
     file_path = os.path.join('static', file_name)
 
     if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="Pie chart not found.")
+        raise HTTPException(status_code=404, detail="Chart not found.")
 
     return FileResponse(file_path, media_type='image/png')
 
